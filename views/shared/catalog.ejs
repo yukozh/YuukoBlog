@@ -1,0 +1,8 @@
+<div class="sidebar-module sidebar-catalogs">
+    <h3>CATALOGS</h3>
+    <div class="sidebar-body"><ul class="sidebar-list">
+            <% catalogs.forEach(x => { %>
+            <li class="sidebar-item"><a href="/catalog/<%= x.catalog.title.toLocaleLowerCase() %>"><%= x.catalog.title %> (<%= x.count %>)</a></li>
+            <% }) %>
+        </ul></div>
+</div>

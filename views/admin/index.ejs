@@ -1,0 +1,57 @@
+<% if(req.query.raw) { %>
+<div>
+    <div id="raw_info">
+        <div class="role-title"><%= title %></div>
+        <div class="role-body-class">home</div>
+        <div class="role-category">home</div>
+        <div class="role-head-title">
+            <h1>管理后台</h1>
+        </div>
+    </div>
+    <% } %>
+    <div class="cont-wrap">
+        <div class="grid_9">
+            <div class="post">
+                <div class="post-body">
+                    <form action="/admin" method="post" id="frmConfig">
+                        <input type="hidden" name="_csrf" value="<%= csrf %>" />
+                        <p>
+                            网站名称: <br />
+                            <input type="text" name="site" value="<%= config.site %>" />
+                        </p>
+                        <p>
+                            网站介绍: <br />
+                            <input type="text" name="description" value="<%= config.description %>" />
+                        </p>
+                        <p>
+                            头像URL: <br />
+                            <input type="text" name="avatarUrl" value="<%= config.avatarUrl %>" />
+                        </p>
+                        <p>
+                            Disqus: <br />
+                            <input type="text" name="disqus" value="<%= config.disqus %>" />
+                        </p>
+                        <p>
+                            关于URL: <br />
+                            <input type="text" name="aboutUrl" value="<%= config.aboutUrl %>" />
+                        </p>
+                        <p>
+                            用户名: <br />
+                            <input type="text" name="username" value="<%= config.username %>" />
+                        </p>
+                        <p>
+                            密码: <br />
+                            <input type="password" name="password" value="" />
+                        </p>
+                        <p>
+                            <input type="button" value="保存" onclick="saveConfig()" />
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <% include ../shared/sidebar %>
+    </div>
+    <% if(req.query.raw) { %>
+</div>
+<% } %>

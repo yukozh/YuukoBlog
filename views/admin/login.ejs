@@ -1,0 +1,29 @@
+<% if(req.query.raw) { %>
+<div>
+    <div id="raw_info">
+        <div class="role-title">管理后台</div>
+        <div class="role-body-class">home</div>
+        <div class="role-category">home</div>
+        <div class="role-head-title">
+            <h1>管理后台</h1>
+        </div>
+    </div>
+    <% } %>
+    <div class="cont-wrap">
+        <div class="grid_9">
+            <div class="post">
+                <div class="post-body">
+                    <form action="/admin/login" method="post">
+                        <input type="hidden" name="_csrf" value="<%= csrf %>" />
+                        <p><input type="text" name="username" placeholder="Username" /></p>
+                        <p><input type="password" name="password" placeholder="Password" /></p>
+                        <input type="submit" value="Log in" />
+                    </form>
+                </div>
+            </div>
+        </div>
+        <% include ../shared/sidebar %>
+    </div>
+    <% if(req.query.raw) { %>
+</div>
+<% } %>

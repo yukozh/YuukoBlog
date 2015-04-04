@@ -1,0 +1,57 @@
+<% if(req.query.raw) { %>
+<div>
+    <div id="raw_info">
+        <div class="role-title"><%= title %></div>
+        <div class="role-body-class">home</div>
+        <div class="role-category">home</div>
+        <div class="role-head-title">
+            <h1>管理后台</h1>
+        </div>
+    </div>
+    <% } %>
+    <div class="cont-wrap">
+        <div class="grid_9">
+            <div class="post">
+                <div class="post-body">
+                    <p>
+                        <a yuuko-static href="javascript:$('#frmNewCatalog').submit();">新建分类</a>
+                    </p>
+                    <form action="/admin/catalog/new" method="post" id="frmNewCatalog">
+                        <input type="hidden" value="<%= csrf %>" name="_csrf" />
+                    </form>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>标题</th>
+                            <th>英文标题</th>
+                            <th>排序</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% allCatalogs.forEach(x => { %>
+                        <tr data-catalog="<%= x._id %>">
+                            <td class="display d-title-zh"><%= x.title_zh %></td>
+                            <td class="display d-title"><%= x.title %></td>
+                            <td class="display d-order"><%= x.order %></td>
+                            <td class="editing"><input class="title-zh" type="text" value="<%= x.title_zh %>" /></td>
+                            <td class="editing"><input class="title" type="text" value="<%= x.title %>" /></td>
+                            <td class="editing"><input class="order" type="text" value="<%= x.order %>" /></td>
+                            <td>
+                                <a class="display" href="javascript:editCatalog('<%= x._id %>');">编辑</a>
+                                <a class="display" href="javascript:deleteCatalog('<%= x._id %>');">删除</a>
+                                <a class="editing" href="javascript:saveCatalog('<%= x._id %>');">保存</a>
+                                <a class="editing" href="javascript:cancelEditCatalog();">取消</a>
+                            </td>
+                        </tr>
+                        <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <% include ../shared/sidebar %>
+    </div>
+    <% if(req.query.raw) { %>
+</div>
+<% } %>

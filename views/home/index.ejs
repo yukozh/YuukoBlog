@@ -1,0 +1,53 @@
+<% if(req.query.raw) { %>
+<div>
+    <div id="raw_info">
+        <div class="role-title"><%= title %> - <%= description %></div>
+        <div class="role-body-class"><%= style %></div>
+        <div class="role-category"><%= style %></div>
+        <div class="role-head-title">
+            <h1><%= title %><%= style == 'home' ? '' : (' » ' + style.toLocaleUpperCase()) %><%= typeof(req.params.tag) == 'undefined' ? '' : (' » ' + req.params.tag) %><%= typeof(req.params.year) == 'undefined' ? '' : (' » ' + req.params.year + '年' + req.params.month + '月 ') %><%= typeof(req.params.page) == 'undefined' || req.params.page == 1 ? '' : (' » PAGE ' + req.params.page) %></h1>
+        </div>
+    </div>
+    <% } %>
+    <div class="cont-wrap">
+        <div class="grid_9">
+            <div class="post-list">
+                <% posts.forEach(function(post) { %>
+                <div class="post">
+                    <div class="post-title"><h2><a href="/post/<%= post.url %>"><%= post.title %></a></h2></div>
+                    <div class="post-body">
+                        <%- xss.process(md(post.summary)) %>
+                    </div>
+                    <div class="post-tags">
+                        <% if (post.catalog) { %>
+                        <div class="post-catalog-item post-catalog-item-<%= post.catalog.title.toLocaleLowerCase() %>"><a href="/category/<%= post.catalog.title.toLocaleLowerCase() %>/"><%= post.catalog.title %></a></div>
+                        <% } %>
+                        <% post.tags.forEach(tag => { %>
+                        <div class="post-tag-item"><a href="/tag/<%= tag %>/"><%= tag %></a></div>
+                        <% }) %>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="post-time">Published on <%= moment(post.time).format('LLL') %></div>
+                </div>
+                <% }) %>
+            </div>
+            <div class="post-nav">
+                <% for (var i = 1; i <= pageCount; i++) { %>
+                <% if (typeof(req.params.catalog) == 'undefined' && typeof(req.params.year) == 'undefined' && typeof(req.params.tag) == 'undefined') { %>
+                <a class="post-nav-page <%= req.params.page == null && i == 1 || req.params.page == i ? 'post-nav-page-current' : '' %>" href="/page/<%= i %>"><%= i %></a>
+                <% } else if (typeof(req.params.catalog) != 'undefined') { %>
+                <a class="post-nav-page <%= req.params.page == null && i == 1 || req.params.page == i ? 'post-nav-page-current' : '' %>" href="/catalog/<%= req.params.catalog %>/<%= i %>"><%= i %></a>
+                <% } else if (typeof(req.params.tag) != 'undefined') { %>
+                <a class="post-nav-page <%= req.params.page == null && i == 1 || req.params.page == i ? 'post-nav-page-current' : '' %>" href="/tag/<%= req.params.tag %>/<%= i %>"><%= i %></a>
+                <% } else { %>
+                <a class="post-nav-page <%= req.params.page == null && i == 1 || req.params.page == i ? 'post-nav-page-current' : '' %>" href="/calendar/<%= req.params.year %>/<%= req.params.month %>/<%= i %>"><%= i %></a>
+                <% } %>
+                <% } %>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <% include ../shared/sidebar %>
+    </div>
+    <% if(req.query.raw) { %>
+</div>
+<% } %>

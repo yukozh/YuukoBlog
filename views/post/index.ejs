@@ -1,0 +1,61 @@
+<% if(req.query.raw) { %>
+<div>
+    <div id="raw_info">
+        <div class="role-title"><%= post.title %> - <%= description %></div>
+        <% if (post.catalog) { %>
+        <div class="role-body-class"><%= post.catalog.title.toLocaleLowerCase() %></div>
+        <div class="role-category"><%= post.catalog.title %></div>
+        <% } else { %>
+        <div class="role-body-class">home</div>
+        <% } %>
+        <div class="role-head-title">
+            <p><h1><%= title %></h1></p>
+            <p><h3><span class="icon-time icon"></span> Published on <%= moment(post.time).format('LLL') %></h3></p>
+        </div>
+    </div>
+    <% } %>
+    <div class="cont-wrap">
+        <div class="grid_9">
+            <div class="post">
+                <div class="post-body">
+                    <%- xss.process(md(post.content)) %>
+                </div>
+                <% if (req.session.admin) { %>
+                <div class="post-edit">
+                    <input type="hidden" value="<%= csrf %>" name="_csrf" />
+                    <p><input id="txtTitle" type="text" placeholder="标题" value="<%= post.title %>" /></p>
+                    <p><input id="txtUrl" type="text" placeholder="URL" value="<%= post.url %>" /></p>
+                    <p>
+                        <select id="lstCatalogs">
+                            <option value="">未分类</option>
+                            <% allCatalogs.forEach(item => { %>
+                            <option value="<%= item._id %>"<%= post.catalog ? (post.catalog._id.toString() == item._id.toString() ? ' selected' : '') : '' %>><%= item.title %></option>
+                            <% }) %>
+                        </select>
+                    </p>
+                    <p>
+                        <textarea id="txtContent" class="markdown-textbox" placeholder="文章内容使用Markdown编码，同样您可以使用HTML代码来编辑您的文章。您可以拖拽图片至编辑区，图片将会自动上传。"><%- post.content %></textarea>
+                    </p>
+                    <p>
+                        <input type="text" id="txtTags" placeholder="标签用空格分隔" value="<%= postTags %>" />
+                    </p>
+                    <p>
+                        <input type="checkbox" id="chkIsPage"<%= post.isPage ? ' checked' : '' %> /> 是否为页面
+                    </p>
+                    <p>
+                        <input type="button" id="btnSavePost" onclick="savePost('<%= post.url %>')" value="保存" />
+                        <a href="javascript:$('.post-edit').slideUp();$('.post-body').slideDown();" yuuko-static>取消编辑</a>
+                    </p>
+                </div>
+                <% } %>
+            </div>
+            <div class="comments">
+                <h2>Comments</h2>
+                <div id="disqus_thread"></div>
+            </div>
+        </div>
+        <% include ../shared/sidebar %>
+    </div>
+    <% if(req.query.raw) { %>
+</div>
+<% } %>

@@ -1,0 +1,32 @@
+<% if(typeof(post) != 'undefined' && (!post.isPage || req.session.admin)) { %>
+<div class="sidebar-module sidebar-postinfo">
+    <h3>THIS POST</h3>
+    <div class="sidebar-body">
+        <% if (!post.isPage) { %>
+        <div class="sidebar-post-time sidebar-item"><span class="icon-time icon"></span> <%= moment(post.time).format('LL') %></div>
+        <% if (post.tags.length > 0) { %>
+        <div class="sidebar-post-tags sidebar-item"><span class="icon-tag icon"></span>
+            <% post.tags.forEach(x => { %>
+            <div class="sidebar-post-tag-item"><a href="/tag/<%= x %>"><%= x %></a></div>
+            <% }) %>
+            <div class="clear"></div></div>
+        <% } if (post.catalog) { %>
+        <div class="sidebar-post-category sidebar-item"><span class="icon-category icon"></span> <div class="sidebar-post-catalog-item sidebar-post-catalog-item-<%= post.catalog.title.toLocaleLowerCase() %>"><a href="/category/<%= post.catalog.title.toLocaleLowerCase() %>"><%= post.catalog.title %></a></div><div class="clear"></div></div>
+        <% } } if (req.session.admin) { %>
+        <div class="sidebar-post-category sidebar-item">
+            <div class="sidebar-post-tag-item">
+                <a href="javascript:DropEnable();$('.post-body').slideUp();$('.post-edit').slideDown();" yuuko-static>编辑文章</a>
+            </div>
+            <div class="sidebar-post-tag-item">
+                <a href="javascript:$('#frmDeletePost').submit();" yuuko-static>删除文章</a>
+            </div>
+            <form id="frmDeletePost" action="/admin/post/delete" method="post">
+                <input type="hidden" value="<%= csrf %>" name="_csrf" />
+                <input type="hidden" value="<%= post.url %>" name="url" />
+            </form>
+            <div class="clear"></div>
+        </div>
+        <% } %>
+    </div>
+</div>
+<% } %>

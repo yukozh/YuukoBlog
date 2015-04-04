@@ -1,0 +1,8 @@
+<div class="sidebar-module sidebar-catalogs">
+    <h3>CALENDAR</h3>
+    <div class="sidebar-body"><ul class="sidebar-list">
+            <% calendar.forEach(x => { %>
+            <li class="sidebar-item"><a href="/calendar/<%= x.date.year %>/<%= x.date.month %>"><%= x.date.year %>年<%= x.date.month %>月 (<%= x.count %>)</a></li>
+            <% }) %>
+        </ul></div>
+</div>

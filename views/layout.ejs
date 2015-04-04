@@ -1,0 +1,77 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title><%= title %> - <%= description %></title>
+    <link href="/styles/yuuko.css" rel="stylesheet" />
+    <script src="/scripts/jquery-1.10.2.min.js"></script>
+    <script src="/scripts/yuuko.js"></script>
+    <script type="text/javascript">
+        if(top.location!==self.location){top.location=self.location}else{if(top!==self){if(confirm("Reload?")){top.location.reload()}}};
+    </script>
+    <script type="text/javascript">
+        var CONFIG = {"Prefix":"","URI":"\/"};
+    </script>
+</head>
+<body class="body-<%= style %>">
+<div id="container">
+    <div class="page-header">
+        <div class="page-header-bar">
+            <div class="cont-wrap">
+                <div class="grid_12">
+                    <a class="page-header-li page-header-li-home<%= style == 'home' ? ' page-header-li-active' : '' %>" href="/"><div class="page-header-li-s"><div class="page-header-li-si"></div></div><div class="page-header-li-t">主页</div><div class="page-header-li-d">HOME</div></a>
+                    <% allCatalogs.forEach(function (x) { %>
+                    <a class="page-header-li page-header-li-<%= x.title.toLocaleLowerCase() %><%= style == x.title.toLocaleLowerCase() ? ' page-header-li-active' : '' %>" href="/catalog/<%= x.title.toLocaleLowerCase() %>/"><div class="page-header-li-s"><div class="page-header-li-si"></div></div><div class="page-header-li-t"><%= x.title_zh %></div><div class="page-header-li-d"><%= x.title.toLocaleUpperCase() %></div></a>
+                    <% }) %>
+                    <div class="clear"></div>
+                </div><div class="clear"></div>
+            </div>
+        </div>
+    </div><div class="page-before">
+        <div class="page-before-inner">
+            <div class="cont-wrap">
+                <div class="grid_12">
+                    <div class="page-title">
+                        <div class="page-title-content">
+                            <% if (typeof(post) == 'undefined') { %>
+                            <h1><%= title %><%= style == 'home' ? '' : (' » ' + style.toLocaleUpperCase()) %><%= typeof(req.params.tag) == 'undefined' ? '' : (' » ' + req.params.tag) %><%= typeof(req.params.year) == 'undefined' ? '' : (' » ' + req.params.year + '年' + req.params.month + '月 ') %><%= typeof(req.params.page) == 'undefined' || req.params.page == 1 ? '' : (' » PAGE ' + req.params.page) %></h1>
+                            <% } else { %>
+                            <p><h1><%= title %></h1></p>
+                            <p><h3><span class="icon-time icon"></span> Published on <%= moment(post.time).format('LLLL') %></h3></p>
+                            <% } %>
+                        </div>
+                    </div>
+                </div><div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    <div class="page-before-push"></div>
+
+    <div class="page-content">
+    <%- body %>
+    </div>
+    <div class="page-footer">
+        <a class="footer-rss-wrap" href="/blog/feed" target="_blank" bw-static><span class="footer-rss icon-feed"></span></a>
+        <div class="cont-wrap">
+            <div class="grid_12">
+                <p>Copyright 2015 <a href="http://www.4321.io" target="_self">Amamiya Yuuko</a>, all rights reserved. </p>
+                <p>Powered by <a href="https://github.com/kagamine/YuukoBlog" target="_blank" yuuko-static>YuukoBlog</a>, a lightweight and super fast Node.js blog system. <% if (!req.session.admin) { %><a href="/admin/login" target="_self">Manage</a><% } %></p>
+            </div><div class="clear"></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/scripts/highlight.js"></script>
+<script type="text/javascript" src="/scripts/prettify.js"></script>
+<script type="text/javascript" src="/scripts/yuuko.js"></script>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = "<%= config.disqus %>"; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+</body>
+</html>
