@@ -1730,12 +1730,12 @@ body {
         background: #14cd6a;
     }
 
-.post-catalog-item-sec a {
+.post-catalog-item-daily a {
     border-color: #cf3333;
     background: #db6767;
 }
 
-    .post-catalog-item-sec a:hover {
+    .post-catalog-item-daily a:hover {
         border-color: #d54d4d;
         background: #df7676;
     }
