@@ -74,7 +74,7 @@ init.tags = function (req, res, next) {
                 x.tag = x._id;
                 delete x._id;
                 return x;
-            });
+            }).sort((a, b) => a.tag > b.tag);
             next();
         })
         .then(null, next);
@@ -100,6 +100,11 @@ init.calendar = function (req, res, next) {
                 x.date = x._id;
                 delete x._id;
                 return x;
+            }).sort((a, b) => {
+                if (a.date.year == b.date.year)
+                    return a.date.month < b.date.month;
+                else
+                    return a.date.year < b.date.year;
             });
             next();
         })
