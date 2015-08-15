@@ -1943,3 +1943,18 @@ td input[type="text"], td input[type="password"] {
     visibility: hidden;
     transition: margin 0.2s linear, opacity 0.2s linear, visibility 0.2s linear;
 }
+
+.post table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    background-color: #fff;
+}
+
+.post td, .post th {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.post thead {
+    background-color: #f8f8f8;
+}
