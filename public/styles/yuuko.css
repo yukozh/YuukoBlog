@@ -1948,11 +1948,14 @@ td input[type="text"], td input[type="password"] {
     border-collapse: collapse;
     border-spacing: 0;
     background-color: #fff;
+    margin: 0 auto;
+    min-width: 40%;
 }
 
 .post td, .post th {
     border: 1px solid #ccc;
     padding: 10px;
+    text-align: left;
 }
 
 .post thead {
