@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://yuuko:123456@localhost/yuuko', {
+mongoose.connect('mongodb://yuuko:123456@hk.1234.sh/yuuko', {
     server: {
         auto_reconnect: true,
         socketOptions:{
