@@ -1,8 +1,8 @@
-<html>
+﻿<html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title><%= title %> - <%= description %></title>
-    <link href="/styles/yuuko.css" rel="stylesheet" />
+    <link href="/styles/yuuko.css?v20150815" rel="stylesheet" />
     <script src="/scripts/jquery-1.10.2.min.js"></script>
     <script src="/scripts/yuuko.js"></script>
     <script type="text/javascript">
@@ -58,7 +58,7 @@
                     <p>Powered by <a href="https://github.com/kagamine/YuukoBlog" target="_blank" yuuko-static>YuukoBlog</a>, a lightweight and super fast Node.js blog system. <% if (!req.session.admin) { %><a href="/admin/login" target="_self">Manage</a><% } %></p>
                 </div>
                 <div class="upyun">
-                    <a href="http://www.upyun.com/"><img src="/images/upyun.png" class="upyun-logo" alt="又拍云CDN" /></a>
+                    <a target="_blank" href="http://www.upyun.com/"><img src="/images/upyun.png" class="upyun-logo" alt="又拍云CDN" /></a>
                 </div>
             </div><div class="clear"></div>
         </div>
